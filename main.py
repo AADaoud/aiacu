@@ -4,7 +4,6 @@ import faiss
 from langchain import OpenAI
 from langchain.chains import VectorDBQAWithSourcesChain
 import pickle
-import os
 import openai
 
 # Use Streamlit's secret management for secure handling of API keys
@@ -13,8 +12,11 @@ api_key = st.secrets["OPENAI_API_KEY"]
 # Load the LangChain.
 index = faiss.read_index("docs.index")
 
-with open("faiss_store.pkl", "rb") as f:
-    store = pickle.load(f)
+try:
+    with open("faiss_store.pkl", "rb") as f:
+        store = pickle.load(f)
+except Exception as e:
+    st.write(f"An error occurred while loading the pickle file: {str(e)}")
 
 store.index = index
 vector_db_chain = VectorDBQAWithSourcesChain.from_llm(llm=OpenAI(client=any, openai_api_key=api_key, temperature=0), vectorstore=store)
