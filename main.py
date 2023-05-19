@@ -4,18 +4,11 @@ import faiss
 from langchain import OpenAI
 from langchain.chains import VectorDBQAWithSourcesChain
 import pickle
-from dotenv import load_dotenv
 import os
 import openai
 
-load_dotenv()
-
-st.write(
-    "Has environment variables been set:",
-    os.environ["OPENAI_API_KEY"] == st.secrets["OPENAI_API_KEY"],
-)
-
-api_key = os.getenv("OPENAI_API_KEY")
+# Use Streamlit's secret management for secure handling of API keys
+api_key = st.secrets["OPENAI_API_KEY"]
 
 # Load the LangChain.
 index = faiss.read_index("docs.index")
