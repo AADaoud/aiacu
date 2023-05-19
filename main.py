@@ -2,7 +2,7 @@ import streamlit as st
 from streamlit_chat import message
 import faiss
 from langchain import OpenAI
-from langchain.chains import VectorDBQAWithSourcesChain
+from langchain.chains import RetrievalQAWithSourcesChain
 import pickle
 import openai
 
@@ -19,7 +19,7 @@ except Exception as e:
     st.write(f"An error occurred while loading the pickle file: {str(e)}")
 
 store.index = index
-vector_db_chain = VectorDBQAWithSourcesChain.from_llm(llm=OpenAI(client=any, openai_api_key=api_key, temperature=0), vectorstore=store)
+vector_db_chain = RetrievalQAWithSourcesChain.from_chain_type(OpenAI(client=any, openai_api_key=api_key, temperature=0), chain_type="stuff", retriever=store.as_retriever())
 
 # Load keywords from set.txt file
 with open("set.txt", "r") as f:
