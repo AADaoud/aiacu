@@ -10,6 +10,11 @@ import openai
 
 load_dotenv()
 
+st.write(
+    "Has environment variables been set:",
+    os.environ["OPENAI_API_KEY"] == st.secrets["OPENAI_API_KEY"],
+)
+
 api_key = os.getenv("OPENAI_API_KEY")
 
 # Load the LangChain.
