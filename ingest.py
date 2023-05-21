@@ -2,16 +2,14 @@
 from pathlib import Path
 from langchain.text_splitter import CharacterTextSplitter
 import faiss
+import streamlit as st
 from langchain.vectorstores import FAISS
 from langchain.embeddings import OpenAIEmbeddings
 import pickle
-from dotenv import load_dotenv
-import os
 import re
 
-load_dotenv()
-
-api_key = os.getenv('OPENAI_API_KEY')
+# Use Streamlit's secret management for secure handling of API keys
+api_key = st.secrets["OPENAI_API_KEY"]
 
 
 # Here we load in the data in the format that Notion exports it in.
