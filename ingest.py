@@ -13,7 +13,7 @@ api_key = st.secrets["OPENAI_API_KEY"]
 
 
 # Here we load in the data in the format that Notion exports it in.
-ps = list(Path("Lectures/").glob("**/*.md"))
+ps = list(Path(".Lectures/").glob("**/*.md"))
 
 data = []
 sources = []
