@@ -25,8 +25,14 @@ index = faiss.read_index("docs.index")
 try:
     with open("faiss_store.pkl", "rb") as f:
         store = pickle.load(f)
+        store.index = index
+except FileNotFoundError:
+    st.write("The file faiss_store.pkl was not found.")
+except pickle.UnpicklingError:
+    st.write("Could not unpickle the file faiss_store.pkl.")
 except Exception as e:
-    st.write(f"An error occurred while loading the pickle file: {str(e)}")
+    st.write(f"An unexpected error occurred: {str(e)}")
+
 
 store.index = index
 openai_instance = OpenAI(client=openai, openai_api_key=api_key, temperature=0)
